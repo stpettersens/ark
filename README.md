@@ -1,2 +1,2 @@
-# ark
-Unix archiver (ar) implementation in Rust.
+### ark
+> :package: Unix archiver (ar) implementation in Rust.

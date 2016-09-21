@@ -7,6 +7,7 @@
 
 extern crate filetime;
 use std::char;
+use std::fs;
 use std::fs::File;
 //use self::filetime::FileTime;
 

@@ -52,7 +52,7 @@ impl Ark {
             let mode = Ark::pad_data(8, &format!("{}", entries[i].mode)); // (e)
             let size = Ark::pad_data(10, &format!("{}", entries[i].size)); // (f)
             let magic = &format!("{}{}", char::from_u32(0x60).unwrap(), char::from_u32(0x0A).unwrap()); // (g)
-            let mut input = File:open(format!("{}", entries[i].file)).unwrap();
+            let mut input = File:open(&format!("{}", entries[i].file)).unwrap();
             let mut contents = String::new();
             let _ = input.read_to_string(&mut contents);
             let data = format!("{}{}{}{}{}{}{}", filename, modified, owner, group, mode, size, magic);

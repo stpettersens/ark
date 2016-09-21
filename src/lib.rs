@@ -44,7 +44,7 @@ impl Ark {
          * (f) File size in bytes (Decimal) [48:10]
          * (g) Magic number ("0x60 0x0A") [58:2]
         */
-        let ar = File::create(archive).unwrap();
+        let mut ar = File::create(archive).unwrap();
         let header = format!("!<arch>{}", char::from_u32(0x0A).unwrap()); // (0)
         for i in 0 .. entries.len() {
             let filename = Ark::pad_data(16, &format!("{}/", entries[i].file)); // (a)

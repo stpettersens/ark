@@ -43,18 +43,31 @@ impl Ark {
          * (g) Magic number ("0x60 0x0A") [58:2]
         */
         let ar = File::create(archive).unwrap();
-        let header = format!("!<arch>{}", char::from_u32(0x0A).unwrap()); // 0
+        let header = format!("!<arch>{}", char::from_u32(0x0A).unwrap()); // (0)
         for i in 0 .. entries.len() {
-            println!("{}", entries[i].file); // TODO Write entries.
+            let filename = Ark::pad_data(16, &format!("{}/", entries[i].file)); // (a)
+            let modified = Ark::pad_data(12, &format!("{}", entries[i].modified); // (b)
+            let owner = Ark::pad_data(6, &format!("{}", entries[i].owner)); // (c)
+            let group = Ark::pad_data(6, &format!("{}", entries[i].group)); // (d)
+            let mode = Ark::pad_data(8, &format!("{}", entries[i].mode)); // (e)
+            let size = Ark::pad_data(10, &format!("{}", entries[i].size)); // (f)
+            let magic = &format!("{}{}", char::from_u32(0x60), char_from_32(0x0A)); // (g)
+            println!("Filename: {}", filename); // TODO: Remove this.
+            println!("Modified: {}", modified);
+            println!("Owner: {}", owner);
+            println!("Group: {}", group);
+            println!("Mode: {}", mode);
+            println!("Size: {}", size);
+            println!("Magic: {}", magic);
         }
     }
 
     pub fn create_archive(archive: &str, filenames: Vec<&str>) {
         let mut entries: Vec<ArEntry> = Vec::new();
         for i in 0 .. filenames.len() {
-            entries.push(ArEntry { 
-                file: filenames[i].to_owned(), 
-                modified: 0, 
+            entries.push(ArEntry {
+                file: filenames[i].to_owned(),
+                modified: 0,
                 owner: 0,
                 group: 0,
                 mode: 0,

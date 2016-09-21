@@ -46,12 +46,12 @@ impl Ark {
         let header = format!("!<arch>{}", char::from_u32(0x0A).unwrap()); // (0)
         for i in 0 .. entries.len() {
             let filename = Ark::pad_data(16, &format!("{}/", entries[i].file)); // (a)
-            let modified = Ark::pad_data(12, &format!("{}", entries[i].modified); // (b)
+            let modified = Ark::pad_data(12, &format!("{}", entries[i].modified)); // (b)
             let owner = Ark::pad_data(6, &format!("{}", entries[i].owner)); // (c)
             let group = Ark::pad_data(6, &format!("{}", entries[i].group)); // (d)
             let mode = Ark::pad_data(8, &format!("{}", entries[i].mode)); // (e)
             let size = Ark::pad_data(10, &format!("{}", entries[i].size)); // (f)
-            let magic = &format!("{}{}", char::from_u32(0x60), char_from_32(0x0A)); // (g)
+            let magic = &format!("{}{}", char::from_u32(0x60).unwrap(), char::from_u32(0x0A).unwrap()); // (g)
             println!("Filename: {}", filename); // TODO: Remove this.
             println!("Modified: {}", modified);
             println!("Owner: {}", owner);

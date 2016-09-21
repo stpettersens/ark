@@ -57,7 +57,7 @@ impl Ark {
             let _ = input.read_to_string(&mut contents);
             let data = format!("{}{}{}{}{}{}{}{}", filename, modified, owner, group, mode, size, magic, contents);
             let hd = format!("{}{}", header, data);
-            let _ = tar.write_all(hd.as_bytes());
+            let _ = ar.write_all(hd.as_bytes());
         }
     }
 

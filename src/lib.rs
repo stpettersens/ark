@@ -8,7 +8,7 @@
 extern crate filetime;
 use std::char;
 use std::fs::File;
-use self::filetime::FileTime;
+//use self::filetime::FileTime;
 
 struct ArEntry {
     file: String,
@@ -42,10 +42,10 @@ impl Ark {
          * (f) File size in bytes (Decimal) [48:10]
          * (g) Magic number ("0x60 0x0A") [58:2]
         */
-        let mut ar = File::create(archive).unwrap();
+        let ar = File::create(archive).unwrap();
         let header = format!("!<arch>{}", char::from_u32(0x0A).unwrap()); // 0
         for i in 0 .. entries.len() {
-
+            println!("{}", entries[i].file); // TODO Write entries.
         }
     }
 
@@ -53,7 +53,7 @@ impl Ark {
         let mut entries: Vec<ArEntry> = Vec::new();
         for i in 0 .. filenames.len() {
             entries.push(ArEntry { 
-                file: filenames[i], 
+                file: filenames[i].to_owned(), 
                 modified: 0, 
                 owner: 0,
                 group: 0,
@@ -61,6 +61,12 @@ impl Ark {
                 size: 0
             })
         }
-        Ark::write_ar_entries(archive, filenames);
+        Ark::write_ar_entries(archive, entries);
     }
+}
+
+#[cfg(test)]
+#[test]
+fn create_archive() {
+    Ark::create_archive("archive.ar", vec!["Cargo.toml", ".gitignore"]);
 }

@@ -2,7 +2,8 @@
     ark: Unix archiver (ar) implementation in Rust.
     Copyright (c) 2016 Sam Saint-Pettersen.
 
-    Released under the MIT License.
+    Released under the MIT License and/or 
+    GNU General Public License v3.
 */
 
 extern crate filetime;
